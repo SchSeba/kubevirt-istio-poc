@@ -8,13 +8,10 @@ yes | cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
 
 kubectl apply -f https://docs.projectcalico.org/v3.0/getting-started/kubernetes/installation/hosted/kubeadm/1.7/calico.yaml
 
-ready=$(kubectl get po -n kube-system | grep kube-dns | grep Running | wc -l)
-
-while [ $ready -eq 0 ]
+while [[ $(kubectl get po -n kube-system | grep kube-dns | grep Running | wc -l) -eq 0 ]}
 do
         echo Calico deployment is no ready yet.
         sleep 5
-        ready=$(kubectl get po -n kube-system | grep kube-dns | grep Running | wc -l)
 done
 
 echo Calico is ready.
@@ -35,14 +32,10 @@ echo Add istio-injection to the default namespace.
 
 kubectl label namespace default istio-injection=enabled 
 
-
-ready=$(kubectl get po -n istio-system | grep sidecar-injector | grep Running | wc -l)
-
-while [ $ready -eq 0 ]
+while [[ $(kubectl get po -n istio-system | grep sidecar-injector | grep Running | wc -l) -eq 0 ]]
 do
         echo Istio deployment is no ready yet.
         sleep 5
-        ready=$(kubectl get po -n istio-system | grep sidecar-injector | grep Running | wc -l)
 done
 
 echo Istio is ready.
