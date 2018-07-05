@@ -51,10 +51,10 @@ spec:
         volumeName: cloudinitvolume
       interfaces:
       - name: testSlirp
-        slirp:
-          ports:
-          - name: http
-            port: 9080
+        slirp: {}
+        ports:
+        - name: http
+          port: 9080
     machine:
       type: ""
     resources:
